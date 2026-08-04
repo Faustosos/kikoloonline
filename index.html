@@ -2,62 +2,90 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kikolo Online</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kikolo Online</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f5f5f5;
+}
+
+header{
+background:#0057D9;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+header h1{
+margin:0;
+}
+
+header p{
+margin-top:10px;
+}
+
+main{
+padding:20px;
+}
+
+.produto{
+background:white;
+padding:20px;
+margin-bottom:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+
+button{
+background:#ff0000;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+}
+
+footer{
+background:#222;
+color:white;
+text-align:center;
+padding:15px;
+margin-top:30px;
+}
+</style>
 </head>
+
 <body>
-    <header>
-        <h1>Kikolo Online</h1>
-        <p>A sua vitrine digital rápida e segura</p>
-    </header>
 
-    <main>
-        <h2>Nossos Produtos</h2>
-        
-        <!-- Produto 1 -->
-        <div class="produto">
-            <h3>Smartphone Samsung Galaxy</h3>
-            <p>Preço: 150.000 Kz</p>
-            <button onclick="adicionarAoCarrinho(150000)">Adicionar ao Carrinho</button>
-        </div>
-        <hr>
+<header>
+<h1>🛒 Kikolo Online</h1>
+<p>Os melhores produtos digitais num só lugar.</p>
+</header>
 
-        <!-- Produto 2 -->
-        <div class="produto">
-            <h3>Ténis Desportivo</h3>
-            <p>Preço: 35.000 Kz</p>
-            <button onclick="adicionarAoCarrinho(350000)">Adicionar ao Carrinho</button>
-        </div>
-        <hr>
+<main>
 
-        <!-- Produto 3 -->
-        <div class="produto">
-            <h3>E-book: Como Vender Online</h3>
-            <p>Preço: 5.000 Kz</p>
-            <button onclick="adicionarAoCarrinho(5000)">Adicionar ao Carrinho</button>
-        </div>
+<div class="produto">
+<h2>Curso de Marketing Digital</h2>
+<p>Aprenda a vender pela Internet e aumentar os seus rendimentos.</p>
+<button>Comprar Agora</button>
+</div>
 
-        <!-- Seção do Carrinho de Compras -->
-        <div id="carrinho-resumo" style="background: #fff; padding: 15px; margin-top: 30px; border-radius: 8px; border: 2px dashed #0044cc; text-align: center;">
-            <h3>🛒 Resumo do Pedido</h3>
-            <p style="font-size: 18px; font-weight: bold;">Total acumulado: <span id="valor-total">0</span> Kz</p>
-        </div>
-    </main>
+<div class="produto">
+<h2>E-book de Negócios Online</h2>
+<p>Descubra estratégias práticas para criar renda pela Internet.</p>
+<button>Comprar Agora</button>
+</div>
 
-    <footer>
-        <p>&copy; 2026 Kikolo Online - Todos os direitos reservados.</p>
-    </footer>
+</main>
 
-    <!-- Código que faz a conta matemática do carrinho -->
-    <script>
-        let total = 0;
-        function adicionarAoCarrinho(preco) {
-            total = total + preco;
-            document.getElementById('valor-total').innerText = total.toLocaleString('pt-AO');
-            alert('Produto adicionado! Total atual: ' + total.toLocaleString('pt-AO') + ' Kz');
-        }
-    </script>
+<footer>
+<p>© 2026 Kikolo Online - Todos os direitos reservados.</p>
+</footer>
+
 </body>
 </html>
