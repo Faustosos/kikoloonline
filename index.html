@@ -1,6 +1,85 @@
-<div id="lista-produtos" style="max-width: 600px; margin: 20px auto; padding: 10px; font-family: sans-serif;">
-    <!-- Os produtos vão aparecer aqui automaticamente -->
-</div>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kikolo Online - Loja</title>
+    <style>
+        body {
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .header-loja {
+            background: #0057D9;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .header-loja h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .header-loja p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        #lista-produtos {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .produto-card {
+            background: #ffffff;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            border-left: 6px solid #0057D9;
+        }
+        .produto-card h3 {
+            margin: 0 0 8px 0;
+            color: #2c3e50;
+            font-size: 19px;
+        }
+        .produto-card .preco {
+            color: #0057D9;
+            font-size: 18px;
+            display: block;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .btn-whatsapp {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        .btn-whatsapp:hover {
+            background: #1ebd58;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-loja">
+        <h1>Kikolo Online</h1>
+        <p>Painel de Produtos Conectado</p>
+    </div>
+
+    <div id="lista-produtos">
+        <!-- Os produtos do seu produtos.txt vão entrar aqui de forma automática -->
+    </div>
 
 <script>
     const urlTxt = "https://githubusercontent.com";
@@ -16,22 +95,37 @@
 
             linhas.forEach(linha => {
                 if(linha.trim() !== "") {
+                    // Separa o Nome do Preço usando o traço ' - ' que você usou no seu txt
                     const partes = linha.split(' - ');
                     const nome = partes[0] ? partes[0].trim() : "Produto";
                     const preco = partes[1] ? partes[1].trim() : "Preço sob consulta";
 
+                    // Cria a mensagem automática para o seu WhatsApp
+                    const mensagemZap = encodeURIComponent(`Olá! Quero fazer a encomenda do produto: ${nome}`);
+                    
+                    // Link do WhatsApp (pode alterar o número 244900000000 depois se quiser)
+                    const linkWhatsApp = `https://wa.me{mensagemZap}`;
+
                     container.innerHTML += `
-                        <div style="background: #ffffff; margin-bottom: 15px; padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-left: 5px solid #0057D9;">
-                            <h3 style="margin: 0 0 8px 0; color: #333333; font-size: 18px;">${nome}</h3>
-                            <strong style="color: #0057D9; font-size: 16px; display: block;">${preco}</strong>
+                        <div class="produto-card">
+                            <h3>${nome}</h3>
+                            <span class="preco">${preco}</span>
+                            <a href="${linkWhatsApp}" target="_blank" class="btn-whatsapp">
+                                Encomendar via WhatsApp
+                            </a>
                         </div>
                     `;
                 }
             });
         } catch (erro) {
-            console.error("Erro ao carregar produtos:", erro);
+            console.error("Erro ao ler o arquivo de produtos:", erro);
         }
     }
 
+    // Executa a busca assim que o site abre
     carregarProdutos();
 </script>
+
+</body>
+</html>
+
