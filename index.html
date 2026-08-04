@@ -95,7 +95,8 @@
 
             linhas.forEach(linha => {
                 if(linha.trim() !== "") {
-                    // Separa o Nome do Preço usando o traço ' - ' que você usou no seu txt
+                    const urlTxt = "https://githubusercontent.com";
+
                     const partes = linha.split(' - ');
                     const nome = partes[0] ? partes[0].trim() : "Produto";
                     const preco = partes[1] ? partes[1].trim() : "Preço sob consulta";
@@ -125,6 +126,7 @@
     // Executa a busca assim que o site abre
     carregarProdutos();
 </script>
+carregarProdutos();
 
 </body>
 </html>
