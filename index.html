@@ -1,91 +1,39 @@
-
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kikolo Online</title>
-
-<style>
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f5f5f5;
-}
-
-header{
-background:#0057D9;
-color:white;
-text-align:center;
-padding:20px;
-}
-
-header h1{
-margin:0;
-}
-
-header p{
-margin-top:10px;
-}
-
-main{
-padding:20px;
-}
-
-.produto{
-background:white;
-padding:20px;
-margin-bottom:20px;
-border-radius:10px;
-box-shadow:0 2px 8px rgba(0,0,0,0.2);
-}
-
-button{
-background:#ff0000;
-color:white;
-border:none;
-padding:12px 20px;
-border-radius:6px;
-font-size:16px;
-cursor:pointer;
-}
-
-footer{
-background:#222;
-color:white;
-text-align:center;
-padding:15px;
-margin-top:30px;
-}
-</style>
-</head>
-
-<body>
-
-<header>
-<h1>🛒 Kikolo Online</h1>
-<p>Os melhores produtos digitais num só lugar.</p>
-</header>
-
-<main>
-
-<div class="produto">
-<h2>Curso de Marketing Digital</h2>
-<p>Aprenda a vender pela Internet e aumentar os seus rendimentos.</p>
-<button>Comprar Agora</button>
+<div id="lista-produtos" style="max-width: 600px; margin: 20px auto; padding: 10px; font-family: sans-serif;">
+    <!-- Os produtos vão aparecer aqui automaticamente -->
 </div>
 
-<div class="produto">
-<h2>E-book de Negócios Online</h2>
-<p>Descubra estratégias práticas para criar renda pela Internet.</p>
-<button>Comprar Agora</button>
-</div>
+<script>
+    const urlTxt = "https://githubusercontent.com";
 
-</main>
+    async function carregarProdutos() {
+        try {
+            const resposta = await fetch(urlTxt);
+            const texto = await response.text();
+            
+            const linhas = texto.split('\n');
+            const container = document.getElementById('lista-produtos');
+            container.innerHTML = ""; 
 
-<footer>
-<p>© 2026 Kikolo Online - Todos os direitos reservados.</p>
-</footer>
+            linhas.forEach(linha => {
+                if(linha.trim() !== "") {
+                    const partes = linha.split(' - ');
+                    const nome = partes[0] ? partes[0].trim() : "Produto";
+                    const preco = partes[1] ? partes[1].trim() : "Preço sob consulta";
 
-</body>
-</html>
+                    container.innerHTML += `
+                        <div style="background: #ffffff; margin-bottom: 15px; padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-left: 5px solid #0057D9;">
+                            <h3 style="margin: 0 0 8px 0; color: #333333; font-size: 18px;">${nome}</h3>
+                            <strong style="color: #0057D9; font-size: 16px; display: block;">${preco}</strong>
+                        </div>
+                    `;
+                }
+            });
+        } catch (erro) {
+            console.error("Erro ao carregar produtos:", erro);
+        }
+    }
+
+    carregarProdutos();
+</script>
+
+
