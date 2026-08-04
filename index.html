@@ -8,7 +8,7 @@
     async function carregarProdutos() {
         try {
             const resposta = await fetch(urlTxt);
-            const texto = await response.text();
+            const texto = await resposta.text();
             
             const linhas = texto.split('\n');
             const container = document.getElementById('lista-produtos');
@@ -35,5 +35,3 @@
 
     carregarProdutos();
 </script>
-
-
