@@ -42,9 +42,6 @@
             font-size: 16px;
             color: #333333;
             border-left: 5px solid #0057D9;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
     </style>
 </head>
@@ -55,44 +52,46 @@
         <p>Painel de Produtos Conectado</p>
     </div>
 
-    <!-- Os produtos vão aparecer organizados dentro desta div abaixo -->
     <div id="lista-produtos"></div>
 
     <script>
         async function carregarProdutos() {
-            // URL raw do seu arquivo produtos.txt no GitHub
-            const url = "https://githubusercontent.com";
-
+            // URL infalível usando a CDN jsDelivr para carregar sem erros
+            const url = "https://jsdelivr.net";
             
             try {
                 const resposta = await fetch(url);
-                const texto = await resposta.text();
+                if (!resposta.ok) throw new Error("Erro na requisição");
                 
-                // Quebra o texto por linhas
+                const texto = await resposta.text();
                 const linhas = texto.split('\n');
                 const container = document.getElementById('lista-produtos');
                 container.innerHTML = ""; 
                 
                 linhas.forEach(linha => {
-                    // Evita criar linhas em branco vazias
                     if(linha.trim() !== "") {
                         const divItem = document.createElement('div');
                         divItem.className = 'produto-item';
-                        divItem.textContent = linha;
+                        divItem.textContent = ServerClean(linha);
                         container.appendChild(divItem);
                     }
                 });
             } catch (erro) {
                 console.error("Erro ao carregar os produtos:", erro);
-                document.getElementById('lista-produtos').innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar produtos.</p>";
+                document.getElementById('lista-produtos').innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar produtos. Tente recarregar.</p>";
             }
         }
 
-        // Executa a busca assim que a página abrir
+        // Função auxiliar para remover possíveis caracteres invisíveis do arquivo de texto do Windows
+        function ServerClean(text) {
+            return text.replace(/[\r]/g, "").trim();
+        }
+
         window.onload = carregarProdutos;
     </script>
 
 </body>
 </html>
+
 
 
