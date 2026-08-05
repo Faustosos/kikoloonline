@@ -56,8 +56,8 @@
 
     <script>
         async function carregarProdutos() {
-            // URL infalível usando a CDN jsDelivr para carregar sem erros
-            const url = "https://jsdelivr.net";
+            // Caminho direto local para evitar qualquer bloqueio do navegador
+            const url = "produtos.txt";
             
             try {
                 const resposta = await fetch(url);
@@ -82,7 +82,6 @@
             }
         }
 
-        // Função auxiliar para remover possíveis caracteres invisíveis do arquivo de texto do Windows
         function ServerClean(text) {
             return text.replace(/[\r]/g, "").trim();
         }
@@ -92,6 +91,7 @@
 
 </body>
 </html>
+
 
 
 
