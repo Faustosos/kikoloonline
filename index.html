@@ -92,8 +92,12 @@
                     if(linha.trim() !== "") {
                         const textoLimpo = ServerClean(linha);
                         
-                        // Link modificado para usar o protocolo direto do aplicativo do telemóvel
-                        const linkWhats = "whatsapp://send?phone=244954047496";
+                        // Cria a mensagem personalizada com o nome e preço do item específico
+                        const mensagemIncial = "Olá! Vi no site e gostava de encomendar o seguinte item: " + textoLimpo;
+                        const mensagemFormatada = encodeURIComponent(mensagemIncial);
+                        
+                        // Link perfeito: abre direto no telemóvel e já preenche o texto no campo de escrita
+                        const linkWhats = "whatsapp://send?phone=244954047496&text=" + mensagemFormatada;
 
                         const divItem = document.createElement('div');
                         divItem.className = 'produto-item';
@@ -123,3 +127,4 @@
 
 </body>
 </html>
+
