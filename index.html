@@ -99,15 +99,16 @@
                         const mensagemIncial = "Olá! Vi no site e gostava de encomendar o seguinte item: " + textoLimpo;
                         const mensagemFormatada = encodeURIComponent(mensagemIncial);
                         
-                        // Link montado de forma simples e direta para não falhar no navegador do telemóvel
+                        // Link direto adaptado para aplicativos móveis
                         const linkWhats = "https://wa.me" + mensagemFormatada;
 
                         const divItem = document.createElement('div');
                         divItem.className = 'produto-item';
                         
+                        // target="_blank" removido para evitar o bloqueio de tela branca do navegador
                         divItem.innerHTML = `
                             <div class="produto-texto">${textoLimpo}</div>
-                            <a href="${linkWhats}" target="_blank" class="btn-whatsapp">
+                            <a href="${linkWhats}" class="btn-whatsapp">
                                 🟢 Comprar via WhatsApp
                             </a>
                         `;
@@ -130,6 +131,7 @@
 
 </body>
 </html>
+
 
 
 
