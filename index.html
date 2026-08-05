@@ -20,35 +20,26 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
-        .header-loja h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-        .header-loja p {
-            margin: 5px 0 0 0;
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        #lista-produtos {
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        .header-loja h1 { margin: 0; font-size: 24px; }
+        .header-loja p { margin: 5px 0 0 0; font-size: 14px; opacity: 0.9; }
+        #lista-produtos { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
         .produto-item {
             background: #ffffff;
-            padding: 20px;
-            margin-bottom: 15px;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             border-left: 6px solid #0057D9;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 12px;
         }
-        .produto-texto {
-            font-size: 17px;
-            color: #333333;
-            font-weight: 500;
+        .produto-imagem {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background-color: #eaeaea;
         }
+        .produto-corpo { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+        .produto-texto { font-size: 18px; color: #333333; font-weight: 600; margin: 0; }
         .btn-whatsapp {
             background-color: #25D366;
             color: white;
@@ -78,11 +69,9 @@
     <script>
         async function carregarProdutos() {
             const url = "produtos.txt";
-            
             try {
                 const resposta = await fetch(url);
                 if (!resposta.ok) throw new Error("Erro na requisição");
-                
                 const texto = await resposta.text();
                 const linhas = texto.split('\n');
                 const container = document.getElementById('lista-produtos');
@@ -90,41 +79,33 @@
                 
                 linhas.forEach(linha => {
                     if(linha.trim() !== "") {
-                        const textoLimpo = ServerClean(linha);
+                        const partes = linha.split('|');
+                        const textoLimpo = ServerClean(partes[0]);
+                        const imagemUrl = partes[1] ? partes[1].trim() : "https://placeholder.com";
                         
-                        // Cria a mensagem personalizada com o nome e preço do item específico
                         const mensagemIncial = "Olá! Vi no site e gostava de encomendar o seguinte item: " + textoLimpo;
                         const mensagemFormatada = encodeURIComponent(mensagemIncial);
-                        
-                        // Link perfeito: abre direto no telemóvel e já preenche o texto no campo de escrita
                         const linkWhats = "whatsapp://send?phone=244954047496&text=" + mensagemFormatada;
 
                         const divItem = document.createElement('div');
                         divItem.className = 'produto-item';
-                        
                         divItem.innerHTML = `
-                            <div class="produto-texto">${textoLimpo}</div>
-                            <a href="${linkWhats}" class="btn-whatsapp">
-                                🟢 Comprar via WhatsApp
-                            </a>
+                            <img src="${imagemUrl}" class="produto-imagem" alt="${textoLimpo}">
+                            <div class="produto-corpo">
+                                <h2 class="produto-texto">${textoLimpo}</h2>
+                                <a href="${linkWhats}" class="btn-whatsapp">🟢 Comprar via WhatsApp</a>
+                            </div>
                         `;
-                        
                         container.appendChild(divItem);
                     }
                 });
             } catch (erro) {
-                console.error("Erro ao carregar os produtos:", erro);
-                document.getElementById('lista-produtos').innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar painel.</p>";
+                console.error(erro);
+                document.getElementById('lista-produtos').innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar o catálogo.</p>";
             }
         }
-
-        function ServerClean(text) {
-            return text.replace(/[\r]/g, "").trim();
-        }
-
+        function ServerClean(text) { return text.replace(/[\r]/g, "").trim(); }
         window.onload = carregarProdutos;
     </script>
-
 </body>
 </html>
-
