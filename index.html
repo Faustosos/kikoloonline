@@ -35,13 +35,38 @@
         }
         .produto-item {
             background: #ffffff;
-            padding: 15px;
-            margin-bottom: 12px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            font-size: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-left: 6px solid #0057D9;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .produto-texto {
+            font-size: 17px;
             color: #333333;
-            border-left: 5px solid #0057D9;
+            font-weight: 500;
+        }
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: background 0.3s;
+        }
+        .btn-whatsapp:active {
+            background-color: #128C7E;
         }
     </style>
 </head>
@@ -52,11 +77,15 @@
         <p>Painel de Produtos Conectado</p>
     </div>
 
+    <!-- Os produtos e botões vão entrar aqui -->
     <div id="lista-produtos"></div>
 
     <script>
+        // DIGITE SEU NÚMERO DE WHATSAPP AQUI COM O INDICATIVO DE ANGOLA (244)
+        // Exemplo: se o número for 923000000, coloque 244923000000 sem espaços nem o sinal "+"
+        const SEU_NUMERO_WHATSAPP = "244900000000"; 
+
         async function carregarProdutos() {
-            // Caminho direto local para evitar qualquer bloqueio do navegador
             const url = "produtos.txt";
             
             try {
@@ -70,15 +99,32 @@
                 
                 linhas.forEach(linha => {
                     if(linha.trim() !== "") {
+                        const textoLimpo = ServerClean(linha);
+                        
+                        // Cria o texto da mensagem automática para o WhatsApp
+                        const mensagemIncial = "Olá! Vi no site e gostava de encomendar o seguinte item: " + textoLimpo;
+                        const mensagemFormatada = encodeURIComponent(mensagemIncial);
+                        
+                        // Link completo do WhatsApp API
+                        const linkWhats = "https://wa.me" + SEU_NUMERO_WHATSAPP + "?text=" + mensagemFormatada;
+
+                        // Cria a estrutura visual com o botão de compra
                         const divItem = document.createElement('div');
                         divItem.className = 'produto-item';
-                        divItem.textContent = ServerClean(linha);
+                        
+                        divItem.innerHTML = `
+                            <div class="produto-texto">${textoLimpo}</div>
+                            <a href="${linkWhats}" target="_blank" class="btn-whatsapp">
+                                🟢 Comprar via WhatsApp
+                            </a>
+                        `;
+                        
                         container.appendChild(divItem);
                     }
                 });
             } catch (erro) {
                 console.error("Erro ao carregar os produtos:", erro);
-                document.getElementById('lista-produtos').innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar produtos. Tente recarregar.</p>";
+                document.getElementById('lista-produtos').innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar painel.</p>";
             }
         }
 
@@ -91,6 +137,7 @@
 
 </body>
 </html>
+
 
 
 
