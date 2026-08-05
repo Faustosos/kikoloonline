@@ -63,10 +63,6 @@
             justify-content: center;
             gap: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: background 0.3s;
-        }
-        .btn-whatsapp:active {
-            background-color: #128C7E;
         }
     </style>
 </head>
@@ -99,13 +95,12 @@
                         const mensagemIncial = "Olá! Vi no site e gostava de encomendar o seguinte item: " + textoLimpo;
                         const mensagemFormatada = encodeURIComponent(mensagemIncial);
                         
-                        // Link direto adaptado para aplicativos móveis
-                        const linkWhats = "https://wa.me" + mensagemFormatada;
+                        // Mudança para a API oficial do WhatsApp que força a abertura da aplicação no Android
+                        const linkWhats = "https://whatsapp.com" + mensagemFormatada;
 
                         const divItem = document.createElement('div');
                         divItem.className = 'produto-item';
                         
-                        // target="_blank" removido para evitar o bloqueio de tela branca do navegador
                         divItem.innerHTML = `
                             <div class="produto-texto">${textoLimpo}</div>
                             <a href="${linkWhats}" class="btn-whatsapp">
@@ -131,6 +126,7 @@
 
 </body>
 </html>
+
 
 
 
