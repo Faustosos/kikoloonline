@@ -77,13 +77,11 @@
         <p>Painel de Produtos Conectado</p>
     </div>
 
-    <!-- Os produtos e botões vão entrar aqui -->
     <div id="lista-produtos"></div>
 
     <script>
-        // DIGITE SEU NÚMERO DE WHATSAPP AQUI COM O INDICATIVO DE ANGOLA (244)
-        // Exemplo: se o número for 923000000, coloque 244923000000 sem espaços nem o sinal "+"
-        const SEU_NUMERO_WHATSAPP = "244900000000"; 
+        // O SEU NÚMERO DE WHATSAPP JÁ ESTÁ ATUALIZADO AQUI ABAIXO:
+        const SEU_NUMERO_WHATSAPP = "244954047496"; 
 
         async function carregarProdutos() {
             const url = "produtos.txt";
@@ -101,14 +99,11 @@
                     if(linha.trim() !== "") {
                         const textoLimpo = ServerClean(linha);
                         
-                        // Cria o texto da mensagem automática para o WhatsApp
                         const mensagemIncial = "Olá! Vi no site e gostava de encomendar o seguinte item: " + textoLimpo;
                         const mensagemFormatada = encodeURIComponent(mensagemIncial);
                         
-                        // Link completo do WhatsApp API
                         const linkWhats = "https://wa.me" + SEU_NUMERO_WHATSAPP + "?text=" + mensagemFormatada;
 
-                        // Cria a estrutura visual com o botão de compra
                         const divItem = document.createElement('div');
                         divItem.className = 'produto-item';
                         
@@ -137,6 +132,7 @@
 
 </body>
 </html>
+
 
 
 
