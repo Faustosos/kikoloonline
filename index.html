@@ -92,8 +92,8 @@
                     if(linha.trim() !== "") {
                         const textoLimpo = ServerClean(linha);
                         
-                        // Formato de API que força o app do telemóvel a abrir o número direto sem dar erro de ligação
-                        const linkWhats = "https://whatsapp.com";
+                        // Link modificado para usar o protocolo direto do aplicativo do telemóvel
+                        const linkWhats = "whatsapp://send?phone=244954047496";
 
                         const divItem = document.createElement('div');
                         divItem.className = 'produto-item';
