@@ -92,15 +92,13 @@
                     if(linha.trim() !== "") {
                         const textoLimpo = ServerClean(linha);
                         
-                        const mensagemIncial = "Olá! Vi no site e gostava de encomendar o seguinte item: " + textoLimpo;
-                        const mensagemFormatada = encodeURIComponent(mensagemIncial);
-                        
-                        // Mudança para a API oficial do WhatsApp que força a abertura da aplicação no Android
-                        const linkWhats = "https://whatsapp.com" + mensagemFormatada;
+                        // Usando o link mais curto e puro possível para enganar o bloqueio do navegador
+                        const linkWhats = "https://wa.me";
 
                         const divItem = document.createElement('div');
                         divItem.className = 'produto-item';
                         
+                        // Removido completamente o target e o código JS do clique
                         divItem.innerHTML = `
                             <div class="produto-texto">${textoLimpo}</div>
                             <a href="${linkWhats}" class="btn-whatsapp">
@@ -126,13 +124,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
