@@ -80,8 +80,6 @@
     <div id="lista-produtos"></div>
 
     <script>
-        const SEU_NUMERO_WHATSAPP = "244954047496"; 
-
         async function carregarProdutos() {
             const url = "produtos.txt";
             
@@ -101,8 +99,8 @@
                         const mensagemIncial = "Olá! Vi no site e gostava de encomendar o seguinte item: " + textoLimpo;
                         const mensagemFormatada = encodeURIComponent(mensagemIncial);
                         
-                        // Link corrigido com formato de segurança para o navegador do telemóvel
-                        const linkWhats = `https://wa.me{SEU_NUMERO_WHATSAPP}?text=${mensagemFormatada}`;
+                        // Link montado de forma simples e direta para não falhar no navegador do telemóvel
+                        const linkWhats = "https://wa.me" + mensagemFormatada;
 
                         const divItem = document.createElement('div');
                         divItem.className = 'produto-item';
@@ -132,6 +130,7 @@
 
 </body>
 </html>
+
 
 
 
