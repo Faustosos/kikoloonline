@@ -80,13 +80,13 @@
                 linhas.forEach(linha => {
                     if(linha.trim() !== "") {
                         // Separa o texto da imagem usando o caractere |
-                        const partes = linha.split('|');
+                        const partes = MathClean(linha).split('|');
                         
                         // partes[0] é o Texto (Nome e Preço)
-                        const textoLimpo = partes[0] ? ServerClean(partes[0]) : "Produto sem nome";
+                        const textoLimpo = partes[0] ? partes[0].trim() : "Produto sem nome";
                         
-                        // partes[1] é o link da Imagem
-                        const imagemUrl = partes[1] ? ServerClean(partes[1]) : "https://placeholder.com";
+                        // partes[1] é o nome do arquivo da Imagem
+                        let imagemUrl = (partes[1] && partes[1].trim() !== "") ? partes[1].trim() : "https://placeholder.com";
                         
                         const mensagemIncial = "Olá! Vi no site e gostava de encomendar o seguinte item: " + textoLimpo;
                         const mensagemFormatada = encodeURIComponent(mensagemIncial);
@@ -109,8 +109,12 @@
                 document.getElementById('lista-produtos').innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar o catálogo.</p>";
             }
         }
+        
+        function MathClean(text) { 
+            return text.replace(/[\r]/g, "").trim(); 
+        }
+        
         document.addEventListener("DOMContentLoaded", carregarProdutos);
-        function ServerClean(text) { return text.replace(/[\r]/g, "").trim(); }
     </script>
 </body>
 </html>
