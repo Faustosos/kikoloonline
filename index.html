@@ -79,9 +79,14 @@
                 
                 linhas.forEach(linha => {
                     if(linha.trim() !== "") {
+                        // Divide a linha pela barra vertical "|"
                         const partes = linha.split('|');
+                        
+                        // Pega a primeira parte antes do "|" (Nome e Preço)
                         const textoLimpo = ServerClean(partes[0]);
-                        const imagemUrl = partes[1] ? partes[1].trim() : "https://placeholder.com";
+                        
+                        // Pega a segunda parte depois do "|" (Link da Imagem). Se não houver, põe foto padrão cinza.
+                        const imagemUrl = partes[1] ? ServerClean(partes[1]) : "https://placeholder.com";
                         
                         const mensagemIncial = "Olá! Vi no site e gostava de encomendar o seguinte item: " + textoLimpo;
                         const mensagemFormatada = encodeURIComponent(mensagemIncial);
