@@ -73,20 +73,24 @@
                 const resposta = await fetch(url);
                 if (!resposta.ok) throw new Error("Erro na requisição");
                 const texto = await resposta.text();
-                const linhas = texto.split('\n');
+                
+                // Divide as linhas limpando quebras de página escondidas (\r)
+                const linhas = texto.replace(/\r/g, "").split('\n');
                 const container = document.getElementById('lista-produtos');
                 container.innerHTML = ""; 
                 
                 linhas.forEach(linha => {
                     if(linha.trim() !== "") {
-                        // Separa o texto da imagem usando o caractere |
-                        const partes = MathClean(linha).split('|');
+                        const partes = linha.split('|');
                         
-                        // partes[0] é o Texto (Nome e Preço)
+                        // Garante a limpeza completa dos espaços no início e fim
                         const textoLimpo = partes[0] ? partes[0].trim() : "Produto sem nome";
+                        let imagemUrl = (partes[1] && partes[1].trim() !== "") ? partes[1].trim() : "";
                         
-                        // partes[1] é o nome do arquivo da Imagem
-                        let imagemUrl = (partes[1] && partes[1].trim() !== "") ? partes[1].trim() : "https://placeholder.com";
+                        // Se não houver imagem, coloca uma imagem padrão
+                        if(!imagemUrl) {
+                            imagemUrl = "https://placeholder.com";
+                        }
                         
                         const mensagemIncial = "Olá! Vi no site e gostava de encomendar o seguinte item: " + textoLimpo;
                         const mensagemFormatada = encodeURIComponent(mensagemIncial);
@@ -108,10 +112,6 @@
                 console.error(erro);
                 document.getElementById('lista-produtos').innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar o catálogo.</p>";
             }
-        }
-        
-        function MathClean(text) { 
-            return text.replace(/[\r]/g, "").trim(); 
         }
         
         document.addEventListener("DOMContentLoaded", carregarProdutos);
