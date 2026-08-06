@@ -74,6 +74,7 @@
                 if (!resposta.ok) throw new Error("Erro na requisição");
                 const texto = await resposta.text();
                 
+                // Limpa quebras de linha invisíveis do Windows (\r) automaticamente
                 const linhas = texto.replace(/\r/g, "").split('\n');
                 const container = document.getElementById('lista-produtos');
                 container.innerHTML = ""; 
@@ -81,15 +82,15 @@
                 linhas.forEach(linha => {
                     if(linha.trim() !== "") {
                         const partes = linha.split('|');
-                        const textoLimpo = partes[0] ? partes[0].trim() : "Produto sem nome";
-                        let nomeImagem = (partes[1] && partes[1].trim() !== "") ? partes[1].trim() : "";
                         
-                        let imagemUrl = "";
-                        if(nomeImagem) {
-                            // Link direto absoluto do GitHub Pages para carregar as fotos sem erro de pasta
+                        // Pega as partes limpando os espaços nas pontas (.trim())
+                        const textoLimpo = partes[0] ? partes[0].trim() : "Produto";
+                        const nomeImagem = partes[1] ? partes[1].trim() : "";
+                        
+                        // Monta o link da imagem direto do seu repositório público
+                        let imagemUrl = "https://placeholder.com";
+                        if(nomeImagem !== "") {
                             imagemUrl = "https://github.io" + nomeImagem;
-                        } else {
-                            imagemUrl = "https://placeholder.com";
                         }
                         
                         const mensagemIncial = "Olá! Vi no site e gostava de encomendar o seguinte item: " + textoLimpo;
@@ -110,7 +111,7 @@
                 });
             } catch (erro) {
                 console.error(erro);
-                document.getElementById('lista-produtos').innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar o catálogo.</p>";
+                document.getElementById('lista-produtos').innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar catálogo.</p>";
             }
         }
         
