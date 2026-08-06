@@ -18,55 +18,46 @@
     </div>
 
     <script>
-        // Seu número de WhatsApp (mude se for necessário)
-        const numeroWhatsapp = "244920000000"; 
+        const numeroWhatsapp = "244920000000"; // Altere para o seu número se necessário
 
         async function carregarProdutos() {
             const container = document.getElementById("produtos-container");
             
             try {
-                // Busca o arquivo produtos.txt do seu GitHub
                 const resposta = await fetch("produtos.txt");
                 if (!resposta.ok) throw new Error("Erro ao carregar o arquivo produtos.txt");
                 
                 const texto = await resposta.text();
-                // Divide o arquivo por linhas
                 const linhas = texto.split("\n");
 
-                container.innerHTML = ""; // Limpa o container antes de carregar
+                container.innerHTML = ""; 
 
                 linhas.forEach(linha => {
-                    // Ignora linhas vazias
                     if (linha.trim() === "") return;
 
-                    // Divide a linha pelas barras verticais "|"
+                    // Divide o texto do produto e o nome da imagem pela barra "|"
                     const partes = linha.split("|");
                     
-                    // Verifica se a linha tem as 3 partes necessárias (Nome, Preço, Imagem)
-                    if (partes.length >= 3) {
-                        const nomeProduto = partes[0].trim();
-                        const precoProduto = partes[1].trim();
-                        const nomeImagem = partes[2].trim();
+                    if (partes.length >= 2) {
+                        const infoProduto = partes[0].trim();
+                        const nomeImagem = partes[1].trim();
 
-                        // Define o caminho direto da imagem que está na raiz do seu GitHub
+                        // O código agora lê o nome exato da imagem sem inventar ou adicionar extensões automáticas
                         let imageUrl = nomeImagem;
 
-                        // Se a imagem não for definida ou estiver vazia, usa uma imagem padrão
-                        if (!imageUrl) {
-                            imageUrl = "placeholder.jpg";
-                        }
+                        // Separa o Nome e o Preço para usar na mensagem do WhatsApp
+                        const detalhes = infoProduto.split("-");
+                        const nomeProduto = detalhes[0] ? detalhes[0].trim() : infoProduto;
 
-                        // Cria a mensagem para o WhatsApp do cliente
-                        const mensagemWhats = encodeURIComponent(`Olá, tenho interesse no produto: ${nomeProduto} - ${precoProduto}`);
+                        const mensagemWhats = encodeURIComponent(`Olá, tenho interesse no produto: ${infoProduto}`);
                         const linkWhats = `https://wa.me{numeroWhatsapp}?text=${mensagemWhats}`;
 
-                        // Monta o bloco do produto em HTML com as classes do seu style.css
                         const divItem = document.createElement("div");
-                        divItem.className = "produto-card"; // ajuste se o nome da classe no seu style.css for diferente
+                        divItem.className = "produto-card"; 
                         divItem.innerHTML = `
                             <img src="${imageUrl}" alt="${nomeProduto}" style="width:100%; max-height:250px; object-fit:contain; border-radius:12px;">
                             <div class="produto-info" style="padding:15px; text-align:center;">
-                                <h2 style="font-size:1.2rem; margin-bottom:10px;">${nomeProduto} - ${precoProduto}</h2>
+                                <h2 style="font-size:1.2rem; margin-bottom:10px;">${infoProduto}</h2>
                                 <a href="${linkWhats}" target="_blank" class="btn-whatsapp" style="display:inline-block; background-color:#25D366; color:white; padding:10px 20px; border-radius:8px; text-decoration:none; font-weight:bold;">
                                     🟢 Comprar via WhatsApp
                                 </a>
@@ -79,11 +70,10 @@
 
             } catch (erro) {
                 console.error("Erro no processamento:", erro);
-                container.innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar os produtos. Verifique o console.</p>";
+                container.innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar os produtos.</p>";
             }
         }
 
-        // Executa a função assim que a página termina de carregar
         document.addEventListener("DOMContentLoaded", carregarProdutos);
     </script>
 </body>
