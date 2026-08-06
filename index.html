@@ -79,13 +79,13 @@
                 
                 linhas.forEach(linha => {
                     if(linha.trim() !== "") {
-                        // Divide a linha pela barra vertical "|"
+                        // Separa o texto da imagem usando o caractere |
                         const partes = linha.split('|');
                         
-                        // Pega a primeira parte antes do "|" (Nome e Preço)
-                        const textoLimpo = ServerClean(partes[0]);
+                        // partes[0] é o Texto (Nome e Preço)
+                        const textoLimpo = partes[0] ? ServerClean(partes[0]) : "Produto sem nome";
                         
-                        // Pega a segunda parte depois do "|" (Link da Imagem). Se não houver, põe foto padrão cinza.
+                        // partes[1] é o link da Imagem
                         const imagemUrl = partes[1] ? ServerClean(partes[1]) : "https://placeholder.com";
                         
                         const mensagemIncial = "Olá! Vi no site e gostava de encomendar o seguinte item: " + textoLimpo;
@@ -109,8 +109,8 @@
                 document.getElementById('lista-produtos').innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar o catálogo.</p>";
             }
         }
+        document.addEventListener("DOMContentLoaded", carregarProdutos);
         function ServerClean(text) { return text.replace(/[\r]/g, "").trim(); }
-        window.onload = carregarProdutos;
     </script>
 </body>
 </html>
