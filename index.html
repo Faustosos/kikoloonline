@@ -3,118 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kikolo Online - Loja</title>
-    <style>
-        body {
-            background-color: #f4f6f9;
-            margin: 0;
-            padding: 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .header-loja {
-            background: #0057D9;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        .header-loja h1 { margin: 0; font-size: 24px; }
-        .header-loja p { margin: 5px 0 0 0; font-size: 14px; opacity: 0.9; }
-        #lista-produtos { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
-        .produto-item {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border-left: 6px solid #0057D9;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        .produto-imagem {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            background-color: #eaeaea;
-        }
-        .produto-corpo { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
-        .produto-texto { font-size: 18px; color: #333333; font-weight: 600; margin: 0; }
-        .btn-whatsapp {
-            background-color: #25D366;
-            color: white;
-            text-decoration: none;
-            text-align: center;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-    </style>
+    <title>Kikolo Online - Painel de Produtos</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="header-loja">
+    <div class="header">
         <h1>Kikolo Online</h1>
         <p>Painel de Produtos Conectado</p>
     </div>
 
-    <div id="lista-produtos"></div>
+    <div id="produtos-container" class="container">
+        <!-- Os produtos vão aparecer aqui automaticamente -->
+    </div>
 
     <script>
-        async function carregarProdutos() {
-            const url = "produtos.txt";
-            try {
-                const resposta = await fetch(url);
-                if (!resposta.ok) throw new Error("Erro na requisição");
-                const texto = await resposta.text();
-                
-                // Limpa quebras de linha invisíveis do Windows (\r) automaticamente
-                const linhas = texto.replace(/\r/g, "").split('\n');
-                const container = document.getElementById('lista-produtos');
-                container.innerHTML = ""; 
-                
-                linhas.forEach(linha => {
-                    if(linha.trim() !== "") {
-                        const partes = linha.split('|');
-                        
-                        // Pega as partes limpando os espaços nas pontas (.trim())
-                        const textoLimpo = partes[0] ? partes[0].trim() : "Produto";
-                        const nomeImagem = partes[1] ? partes[1].trim() : "";
-                        
-                        // Monta o link da imagem direto do seu repositório público
-                        let imagemUrl = "https://placeholder.com";
-                        if(nomeImagem !== "") {
-                            imagemUrl = "https://github.io" + nomeImagem;
-                        }
-                        
-                        const mensagemIncial = "Olá! Vi no site e gostava de encomendar o seguinte item: " + textoLimpo;
-                        const mensagemFormatada = encodeURIComponent(mensagemIncial);
-                        const linkWhats = "whatsapp://send?phone=244954047496&text=" + mensagemFormatada;
+        // Seu número de WhatsApp (mude se for necessário)
+        const numeroWhatsapp = "244920000000"; 
 
-                        const divItem = document.createElement('div');
-                        divItem.className = 'produto-item';
+        async function carregarProdutos() {
+            const container = document.getElementById("produtos-container");
+            
+            try {
+                // Busca o arquivo produtos.txt do seu GitHub
+                const resposta = await fetch("produtos.txt");
+                if (!resposta.ok) throw new Error("Erro ao carregar o arquivo produtos.txt");
+                
+                const texto = await resposta.text();
+                // Divide o arquivo por linhas
+                const linhas = texto.split("\n");
+
+                container.innerHTML = ""; // Limpa o container antes de carregar
+
+                linhas.forEach(linha => {
+                    // Ignora linhas vazias
+                    if (linha.trim() === "") return;
+
+                    // Divide a linha pelas barras verticais "|"
+                    const partes = linha.split("|");
+                    
+                    // Verifica se a linha tem as 3 partes necessárias (Nome, Preço, Imagem)
+                    if (partes.length >= 3) {
+                        const nomeProduto = partes[0].trim();
+                        const precoProduto = partes[1].trim();
+                        const nomeImagem = partes[2].trim();
+
+                        // Define o caminho direto da imagem que está na raiz do seu GitHub
+                        let imageUrl = nomeImagem;
+
+                        // Se a imagem não for definida ou estiver vazia, usa uma imagem padrão
+                        if (!imageUrl) {
+                            imageUrl = "placeholder.jpg";
+                        }
+
+                        // Cria a mensagem para o WhatsApp do cliente
+                        const mensagemWhats = encodeURIComponent(`Olá, tenho interesse no produto: ${nomeProduto} - ${precoProduto}`);
+                        const linkWhats = `https://wa.me{numeroWhatsapp}?text=${mensagemWhats}`;
+
+                        // Monta o bloco do produto em HTML com as classes do seu style.css
+                        const divItem = document.createElement("div");
+                        divItem.className = "produto-card"; // ajuste se o nome da classe no seu style.css for diferente
                         divItem.innerHTML = `
-                            <img src="${imagemUrl}" class="produto-imagem" alt="${textoLimpo}">
-                            <div class="produto-corpo">
-                                <h2 class="produto-texto">${textoLimpo}</h2>
-                                <a href="${linkWhats}" class="btn-whatsapp">🟢 Comprar via WhatsApp</a>
+                            <img src="${imageUrl}" alt="${nomeProduto}" style="width:100%; max-height:250px; object-fit:contain; border-radius:12px;">
+                            <div class="produto-info" style="padding:15px; text-align:center;">
+                                <h2 style="font-size:1.2rem; margin-bottom:10px;">${nomeProduto} - ${precoProduto}</h2>
+                                <a href="${linkWhats}" target="_blank" class="btn-whatsapp" style="display:inline-block; background-color:#25D366; color:white; padding:10px 20px; border-radius:8px; text-decoration:none; font-weight:bold;">
+                                    🟢 Comprar via WhatsApp
+                                </a>
                             </div>
                         `;
+                        
                         container.appendChild(divItem);
                     }
                 });
+
             } catch (erro) {
-                console.error(erro);
-                document.getElementById('lista-produtos').innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar catálogo.</p>";
+                console.error("Erro no processamento:", erro);
+                container.innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar os produtos. Verifique o console.</p>";
             }
         }
-        
+
+        // Executa a função assim que a página termina de carregar
         document.addEventListener("DOMContentLoaded", carregarProdutos);
     </script>
 </body>
