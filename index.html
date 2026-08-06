@@ -16,7 +16,7 @@
     <div id="produtos-container" class="container"></div>
 
     <script>
-        const numeroWhatsapp = "244920000000"; // Mude para o seu número real se quiser
+        const numeroWhatsapp = "244920000000"; // Substitua pelo seu número real do WhatsApp se desejar
 
         async function carregarProdutos() {
             const container = document.getElementById("produtos-container");
@@ -36,7 +36,7 @@
                         const infoProduto = partes[0].trim();
                         const nomeImagem = partes[1].trim();
 
-                        // Puxa a imagem diretamente da raiz do GitHub sem inventar extensões
+                        // Lê o nome da imagem diretamente do arquivo sem modificações automáticas
                         let imageUrl = nomeImagem;
 
                         const mensagemWhats = encodeURIComponent(`Olá, tenho interesse no produto: ${infoProduto}`);
