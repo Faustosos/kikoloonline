@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kikolo Online - Infoprodutos de Marketing Digital</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- CÓDIGO DE NOTIFICAÇÕES (ONESIGNAL) -->
+    <script src="https://onesignal.com" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "c48b7177-43b6-48ae-a6af-014b7992512a",
+        });
+      });
+    </script>
 </head>
 <body>
 
@@ -13,20 +24,17 @@
         <p>Aprenda a Ganhar Dinheiro com a Internet em Angola</p>
     </div>
 
-    <!-- Espaço onde ficará o seu infoproduto -->
     <div id="produtos-container" class="container">
         <div class="produto-card">
             <h2>Método Lucro Digital Angola</h2>
             <p>Descubra o passo a passo para vender todos os dias usando apenas o seu telemóvel.</p>
             <span class="preco">Preço: 5.000 Kz</span>
-            <!-- Botão que envia o cliente direto para o seu WhatsApp com uma mensagem pronta -->
             <a href="https://wa.me" class="botao-comprar" target="_blank">Comprar Agora</a>
         </div>
     </div>
 
     <script>
-        // O seu número de WhatsApp configurado corretamente
-        const numeroWhatsapp = "244954047496"; 
+        const numeroWhatsapp = "244920000000"; 
     </script>
 </body>
 </html>
