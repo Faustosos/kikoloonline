@@ -3,64 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kikolo Online - Painel de Produtos</title>
+    <title>Kikolo Online - Infoprodutos de Marketing Digital</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="header">
         <h1>Kikolo Online</h1>
-        <p>Painel de Produtos Conectado</p>
+        <p>Aprenda a Ganhar Dinheiro com a Internet em Angola</p>
     </div>
 
-    <div id="produtos-container" class="container"></div>
+    <!-- Espaço onde ficará o seu infoproduto -->
+    <div id="produtos-container" class="container">
+        <div class="produto-card">
+            <h2>Método Lucro Digital Angola</h2>
+            <p>Descubra o passo a passo para vender todos os dias usando apenas o seu telemóvel.</p>
+            <span class="preco">Preço: 5.000 Kz</span>
+            <!-- Botão que envia o cliente direto para o seu WhatsApp com uma mensagem pronta -->
+            <a href="https://wa.me" class="botao-comprar" target="_blank">Comprar Agora</a>
+        </div>
+    </div>
 
     <script>
-        const numeroWhatsapp = "244920000000"; // Substitua pelo seu número real do WhatsApp se desejar
-
-        async function carregarProdutos() {
-            const container = document.getElementById("produtos-container");
-            try {
-                const resposta = await fetch("produtos.txt");
-                if (!resposta.ok) throw new Error("Erro ao carregar");
-                
-                const texto = await resposta.text();
-                const linhas = texto.split("\n");
-                container.innerHTML = ""; 
-
-                linhas.forEach(linha => {
-                    if (linha.trim() === "") return;
-                    const partes = linha.split("|");
-                    
-                    if (partes.length >= 2) {
-                        const infoProduto = partes[0].trim();
-                        const nomeImagem = partes[1].trim();
-
-                        // Lê o nome da imagem diretamente do arquivo sem modificações automáticas
-                        let imageUrl = nomeImagem;
-
-                        const mensagemWhats = encodeURIComponent(`Olá, tenho interesse no produto: ${infoProduto}`);
-                        const linkWhats = `https://wa.me{numeroWhatsapp}?text=${mensagemWhats}`;
-
-                        const divItem = document.createElement("div");
-                        divItem.className = "produto-card"; 
-                        divItem.innerHTML = `
-                            <img src="${imageUrl}" alt="${infoProduto}" style="width:100%; max-height:250px; object-fit:contain; border-radius:12px;">
-                            <div class="produto-info" style="padding:15px; text-align:center;">
-                                <h2 style="font-size:1.2rem; margin-bottom:10px;">${infoProduto}</h2>
-                                <a href="${linkWhats}" target="_blank" class="btn-whatsapp" style="display:inline-block; background-color:#25D366; color:white; padding:10px 20px; border-radius:8px; text-decoration:none; font-weight:bold;">
-                                    🟢 Comprar via WhatsApp
-                                </a>
-                            </div>
-                        `;
-                        container.appendChild(divItem);
-                    }
-                });
-            } catch (erro) {
-                console.error(erro);
-            }
-        }
-        document.addEventListener("DOMContentLoaded", carregarProdutos);
+        // O seu número de WhatsApp configurado corretamente
+        const numeroWhatsapp = "244954047496"; 
     </script>
 </body>
 </html>
