@@ -1,46 +1,78 @@
+/* Configuração Geral */
 body {
-    background-color: #f0f4f8;
     font-family: Arial, sans-serif;
+    background-color: #f4f7f6;
     margin: 0;
     padding: 0;
     color: #333;
-}
-header {
-    background-color: #0044cc;
-    color: white;
     text-align: center;
-    padding: 20px;
 }
-main {
-    padding: 20px;
+
+/* Cabeçalho */
+.header {
+    background-color: #0073e6;
+    color: white;
+    padding: 40px 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.header p {
+    font-size: 1.2em;
+    margin-top: 10px;
+    opacity: 0.9;
+}
+
+/* Contentor do Produto */
+.container {
     max-width: 600px;
-    margin: 0 auto;
+    margin: 40px auto;
+    padding: 0 20px;
 }
-.produto {
-    background-color: white;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+/* Cartão do Produto */
+.produto-card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-.produto h3 {
+
+.produto-card h2 {
+    color: #0073e6;
     margin-top: 0;
-    color: #0044cc;
 }
-button {
-    background-color: #28a745;
+
+.produto-card p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #666;
+}
+
+.preco {
+    display: block;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #2ecc71;
+    margin: 20px 0;
+}
+
+/* Botão de Compra */
+.botao-comprar {
+    display: inline-block;
+    background-color: #2ea44f;
     color: white;
-    border: none;
-    padding: 12px 15px;
-    font-size: 16px;
+    text-decoration: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
     border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
+    transition: background 0.3s;
 }
-footer {
-    text-align: center;
-    padding: 15px;
-    background-color: #0044cc;
-    color: white;
-    margin-top: 20px;
+
+.botao-comprar:hover {
+    background-color: #227d3c;
 }
