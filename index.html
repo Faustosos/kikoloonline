@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kikolo Online - Infoprodutos de Marketing</title>
     <link rel="stylesheet" href="style.css">
-    
+
     <!-- CÓDIGO DE NOTIFICAÇÕES (ONESIGNAL) -->
     <script src="https://onesignal.com" defer></script>
     <script>
         window.OneSignalDeferred = window.OneSignalDeferred || [];
         OneSignalDeferred.push(async function(OneSignal) {
             await OneSignal.init({
-                appId: "c48b7177-43b6-48ae-a6af-014",
+                appId: "c48b7177-43b6-48ae-a6af-014ae6a6a6a6",
             });
         });
     </script>
@@ -27,14 +27,16 @@
     <div id="produtos-container" class="container">
         <div class="produto-card">
             <h2>Método Lucro Digital Angola</h2>
-            <p>Descubra o passo a passo para faturar online.</p>
+            <p>Descubra o passo a passo para criar o seu negócio online do zero.</p>
             <span class="preco">Preço: 5.000 Kz</span>
-            <a href="https://forms.gle" class="botao-comprar">Comprar Agora</a>
+            
+            <!-- Botão de Pagamento Automático via PayPay / KWiK -->
+            <a href="https://paypayao.com" class="botao-comprar" target="_blank">Comprar Agora (PayPay/KWiK)</a>
+            
+            <!-- Botão para Entrar no Grupo de Suporte -->
+            <a href="https://whatsapp.com" class="botao-grupo" target="_blank" style="display: block; text-align: center; margin-top: 10px; padding: 10px; background-color: #25D366; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Entrar no Grupo de Marketing</a>
         </div>
     </div>
 
-    <script>
-        const numerowhatsapp = "244954047496";
-    </script>
 </body>
 </html>
